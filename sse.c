@@ -19,8 +19,8 @@ int main(){
 	int i,j;//metavlhtes gia tis epanalhpseis
 	double timeStart , timeEnd;	
 	__m128 *vp, *vnp;
-  __m128 tp1;//prosorinh metavlhth
-  __m128 tp2;//prosorinh metavlhth
+        __m128 tp1;//prosorinh metavlhth
+  	__m128 tp2;//prosorinh metavlhth
   
 	i = posix_memalign( (void **)&p, 16, N*M*sizeof(float) );
 	if (i!=0) {
@@ -41,7 +41,7 @@ int main(){
 
 	int k1 = 0.5;// h metavlhth gia ton katallhlo pollaplasiasmo
 	int k2 = 5.0;// h metavlhth gia ton katallhlo pollaplasiasmo
-  c1=0.0;//arxikopoihsh twn counter
+  	c1=0.0;//arxikopoihsh twn counter
 	c2=0.0;//arxikopoihsh twn counter
   
 	for(i=0;i<(N*M);i++){//arxikopoihsh twn 2 pinakwn
@@ -56,15 +56,15 @@ int main(){
 	for (j=0;j<M-2;j++){ 
 		for (i=0;i<N-2;i++){
       
-		tp1 = _mm_set_ps(p[(j+1)*N+i],p[(j+1)*N+(i+2)],p[(j+2)*N+(i+1)],p[(j+2)*N+(i+2)]);	//vazoume tis times twn 4 geitonikwn pixel	
-		tp1 = _mm_mul_ps(tp1, *vnp);//pollaplasiazoume ta geitonika pixel me ton pinaka pou exei thn timh 0.5
-    c1 = c1 + tp1[x];//meta ton pollaplasiasmo prosthetoume tis times etsi wste na tis xrhsimopoihsoume meta 
+			tp1 = _mm_set_ps(p[(j+1)*N+i],p[(j+1)*N+(i+2)],p[(j+2)*N+(i+1)],p[(j+2)*N+(i+2)]);	//vazoume tis times twn 4 geitonikwn pixel	
+			tp1 = _mm_mul_ps(tp1, *vnp);//pollaplasiazoume ta geitonika pixel me ton pinaka pou exei thn timh 0.5
+    			c1 = c1 + tp1[x];//meta ton pollaplasiasmo prosthetoume tis times etsi wste na tis xrhsimopoihsoume meta 
       
-    tp2 =  _mm_set_ps(p[(j+2)*N+i],p[j*N+(i+1)],p[j*N+i],p[j*N+(i+2)]);	//vazoume tis times twn teleutaiwn 4 geitonikwn pixel
-    tp2 = _mm_mul_ps(tp2, *vnp);//pollaplasiazoume ta geitonika pixel me ton pinaka pou exei thn timh 0.5
-	  c2 = c2 + tp2[x];//meta ton pollaplasiasmo prosthetoume tis times etsi wste na tis xrhsimopoihsoume meta 
+    			tp2 =  _mm_set_ps(p[(j+2)*N+i],p[j*N+(i+1)],p[j*N+i],p[j*N+(i+2)]);	//vazoume tis times twn teleutaiwn 4 geitonikwn pixel
+    			tp2 = _mm_mul_ps(tp2, *vnp);//pollaplasiazoume ta geitonika pixel me ton pinaka pou exei thn timh 0.5
+	  		c2 = c2 + tp2[x];//meta ton pollaplasiasmo prosthetoume tis times etsi wste na tis xrhsimopoihsoume meta 
       
-    np[(j+1)*N+(i+1)]=(p[(j+1)*N+(i+1)] * 5.0) + c1 + c2 ;//vrhskoume thn timh tou mesaiou pixel , to pollaplasiazoume me to 5.0 kai prosthetoume ta counter
+    			np[(j+1)*N+(i+1)]=(p[(j+1)*N+(i+1)] * 5.0) + c1 + c2 ;//vrhskoume thn timh tou mesaiou pixel , to pollaplasiazoume me to 5.0 kai prosthetoume ta counter
 
 		}
 	}
